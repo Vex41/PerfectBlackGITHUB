@@ -1,6 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://bmq47gvfxnnrw"]
+[gd_scene load_steps=9 format=3 uid="uid://b5hxxvqg6f7te"]
 
-[ext_resource type="Script" path="res://coin.gd" id="1_5agt2"]
+[ext_resource type="Script" path="res://Objects/Coin/coin.gd" id="1_yssn2"]
 [ext_resource type="Texture2D" uid="uid://d1o3ak4vf5q8i" path="res://Objects/Coin/Coin.png" id="2_gddc3"]
 [ext_resource type="AudioStream" uid="uid://caigf2x63o5k" path="res://Objects/Coin/pickup.wav" id="3_iydi0"]
 
@@ -121,7 +121,7 @@ _data = {
 }
 
 [node name="coin" type="StaticBody2D"]
-script = ExtResource("1_5agt2")
+script = ExtResource("1_yssn2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 3

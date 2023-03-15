@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://buguouf2slflm"]
+[gd_scene load_steps=13 format=3 uid="uid://buguouf2slflm"]
 
 [ext_resource type="Texture2D" uid="uid://c88bqnrw1kyea" path="res://Player/images/player (2).png" id="1_e2ixs"]
 [ext_resource type="Script" path="res://Player/player.gd" id="1_riqxo"]
@@ -70,9 +70,22 @@ tracks/1/keys = {
 "values": [true]
 }
 
+[sub_resource type="Animation" id="Animation_4m10t"]
+resource_name = "Dash Ready"
+
+[sub_resource type="Animation" id="Animation_qsrgc"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_v8yy6"]
+resource_name = "Dashhide"
+length = 0.1
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dgc0m"]
 _data = {
+"Dash Ready": SubResource("Animation_4m10t"),
+"Dashhide": SubResource("Animation_v8yy6"),
 "In_air": SubResource("Animation_2n2da"),
+"RESET": SubResource("Animation_qsrgc"),
 "idle": SubResource("Animation_r0j3y"),
 "walk": SubResource("Animation_7wo8f")
 }
@@ -84,7 +97,7 @@ script = ExtResource("1_riqxo")
 texture_filter = 3
 texture = ExtResource("1_e2ixs")
 hframes = 7
-frame = 6
+frame = 4
 
 [node name="Shape" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2.5)
@@ -120,5 +133,14 @@ collision_mask = 2
 position = Vector2(0, 2.5)
 shape = SubResource("RectangleShape2D_t5shg")
 
+[node name="Cooldown" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="dash time" type="Timer" parent="."]
+wait_time = 0.3
+
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 [connection signal="finished" from="Death" to="." method="_on_death_finished"]
+[connection signal="timeout" from="Cooldown" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Cooldown" to="." method="_on_cooldown_timeout"]
+[connection signal="timeout" from="dash time" to="." method="_on_dash_time_timeout"]

@@ -5,7 +5,7 @@ extends StaticBody2D
 func _ready():
 	$AnimationPlayer.play("spin")
 
-func _on_detection_area_entered(area):
+func _on_detection_area_entered(_area):
 	global.coin()
 	$AnimationPlayer.play("pickup")
 	$AudioStreamPlayer2D.play()
