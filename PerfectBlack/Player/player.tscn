@@ -1,12 +1,20 @@
-[gd_scene load_steps=13 format=3 uid="uid://buguouf2slflm"]
+[gd_scene load_steps=15 format=3 uid="uid://buguouf2slflm"]
 
 [ext_resource type="Texture2D" uid="uid://c88bqnrw1kyea" path="res://Player/images/player (2).png" id="1_e2ixs"]
 [ext_resource type="Script" path="res://Player/player.gd" id="1_riqxo"]
 [ext_resource type="AudioStream" uid="uid://cvwgetcmpue3k" path="res://Player/sounds/death.mp3" id="3_j10u0"]
 [ext_resource type="AudioStream" uid="uid://b2krhx7fup3ss" path="res://Player/sounds/footstep.wav" id="4_el87u"]
+[ext_resource type="Texture2D" uid="uid://ccruhp00whdtl" path="res://Objects/light.png" id="5_1tj0q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t5shg"]
 size = Vector2(12, 11)
+
+[sub_resource type="Animation" id="Animation_4m10t"]
+resource_name = "Dash Ready"
+
+[sub_resource type="Animation" id="Animation_v8yy6"]
+resource_name = "Dashhide"
+length = 0.1
 
 [sub_resource type="Animation" id="Animation_2n2da"]
 resource_name = "In_air"
@@ -23,6 +31,9 @@ tracks/0/keys = {
 "update": 1,
 "values": [4]
 }
+
+[sub_resource type="Animation" id="Animation_qsrgc"]
+length = 0.001
 
 [sub_resource type="Animation" id="Animation_r0j3y"]
 resource_name = "idle"
@@ -70,16 +81,6 @@ tracks/1/keys = {
 "values": [true]
 }
 
-[sub_resource type="Animation" id="Animation_4m10t"]
-resource_name = "Dash Ready"
-
-[sub_resource type="Animation" id="Animation_qsrgc"]
-length = 0.001
-
-[sub_resource type="Animation" id="Animation_v8yy6"]
-resource_name = "Dashhide"
-length = 0.1
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dgc0m"]
 _data = {
 "Dash Ready": SubResource("Animation_4m10t"),
@@ -90,7 +91,11 @@ _data = {
 "walk": SubResource("Animation_7wo8f")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_il21k"]
+
 [node name="Player" type="CharacterBody2D"]
+collision_layer = 17
+collision_mask = 17
 script = ExtResource("1_riqxo")
 
 [node name="Sprite" type="Sprite2D" parent="."]
@@ -125,6 +130,14 @@ stream = ExtResource("3_j10u0")
 stream = ExtResource("4_el87u")
 volume_db = 1.0
 
+[node name="door" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 8
+
+[node name="Shape3" type="CollisionShape2D" parent="door"]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_t5shg")
+
 [node name="coin" type="Area2D" parent="."]
 collision_layer = 2
 collision_mask = 2
@@ -133,11 +146,23 @@ collision_mask = 2
 position = Vector2(0, 2.5)
 shape = SubResource("RectangleShape2D_t5shg")
 
+[node name="enemy detection" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy detection"]
+shape = SubResource("CircleShape2D_il21k")
+
 [node name="Cooldown" type="Timer" parent="."]
 wait_time = 5.0
 
 [node name="dash time" type="Timer" parent="."]
 wait_time = 0.3
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 300.0
+texture = ExtResource("5_1tj0q")
+texture_scale = 0.1
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 [connection signal="finished" from="Death" to="." method="_on_death_finished"]

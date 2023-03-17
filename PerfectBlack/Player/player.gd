@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 const JUMP_VELOCITY = -300.0
+@onready var global = get_node("/root/Globals")
 
 var SPEED = 100.0
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -42,9 +43,14 @@ func _physics_process(delta):
 			$"dash time".start()
 			Dashready = false
 	
+	if Input.is_action_pressed("end"):
+		get_tree().quit()
 	
 	if !is_on_floor():
 		$AnimationPlayer.play("In_air")
+	
+	if global.light == false:
+		pass
 	
 	move_and_slide()
 
