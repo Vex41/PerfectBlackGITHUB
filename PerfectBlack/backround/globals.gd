@@ -11,3 +11,6 @@ func unlit():
 	light = false
 func lit():
 	light = true
+
+func chest():
+	score += 5

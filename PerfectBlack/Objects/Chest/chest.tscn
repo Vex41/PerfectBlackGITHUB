@@ -1,0 +1,81 @@
+[gd_scene load_steps=9 format=3 uid="uid://c507a7ryl3103"]
+
+[ext_resource type="Script" path="res://Objects/Chest.gd" id="1_wygc6"]
+[ext_resource type="Texture2D" uid="uid://dcjuyienq3v1a" path="res://Objects/Chest/chest.png" id="2_y5isx"]
+[ext_resource type="AudioStream" uid="uid://bap2nw5o3raxe" path="res://Objects/Chest/Pickup.wav" id="3_drpcv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e35kq"]
+size = Vector2(16, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c40xk"]
+size = Vector2(18, 13)
+
+[sub_resource type="Animation" id="Animation_1qw67"]
+resource_name = "pickup"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_pwo7x"]
+resource_name = "Closed"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7nvix"]
+_data = {
+"Closed": SubResource("Animation_pwo7x"),
+"pickup": SubResource("Animation_1qw67")
+}
+
+[node name="Chest" type="StaticBody2D"]
+script = ExtResource("1_wygc6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 3
+texture = ExtResource("2_y5isx")
+hframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_e35kq")
+disabled = true
+
+[node name="Player" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_c40xk")
+
+[node name="pickup" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_drpcv")
+volume_db = 10.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_7nvix")
+}
+
+[connection signal="area_entered" from="Player" to="." method="_on_player_area_entered"]

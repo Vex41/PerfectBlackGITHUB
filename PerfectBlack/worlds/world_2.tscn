@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://dy3cmbaeabijs"]
+[gd_scene load_steps=12 format=3 uid="uid://dqo33p8gbydvu"]
 
 [ext_resource type="Texture2D" uid="uid://lyuslgkdv0ku" path="res://backround/Tilemap.png" id="1_5w1in"]
 [ext_resource type="PackedScene" uid="uid://buguouf2slflm" path="res://Player/player.tscn" id="2_ja13u"]
 [ext_resource type="Texture2D" uid="uid://ccruhp00whdtl" path="res://Objects/light.png" id="3_2je37"]
-[ext_resource type="Script" path="res://worlds/World2.gd" id="4_ijruv"]
+[ext_resource type="Script" path="res://worlds/code/World2.gd" id="4_m0lx6"]
+[ext_resource type="PackedScene" uid="uid://b5hxxvqg6f7te" path="res://Objects/Coin/coin.tscn" id="5_r6jad"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nwd7u"]
 texture = ExtResource("1_5w1in")
@@ -417,10 +418,19 @@ texture_scale = 0.1
 [node name="door" type="Area2D" parent="."]
 collision_layer = 8
 collision_mask = 8
-script = ExtResource("4_ijruv")
+script = ExtResource("4_m0lx6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="door"]
 position = Vector2(1000, 184)
 shape = SubResource("RectangleShape2D_i0xbi")
+
+[node name="coin" parent="." instance=ExtResource("5_r6jad")]
+position = Vector2(152, 192)
+
+[node name="coin2" parent="." instance=ExtResource("5_r6jad")]
+position = Vector2(288, 176)
+
+[node name="coin3" parent="." instance=ExtResource("5_r6jad")]
+position = Vector2(744, 144)
 
 [connection signal="area_entered" from="door" to="door" method="_on_area_entered"]
