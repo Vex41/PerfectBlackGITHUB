@@ -1,0 +1,465 @@
+[gd_scene load_steps=26 format=3 uid="uid://buguouf2slflm"]
+
+[ext_resource type="Texture2D" uid="uid://c88bqnrw1kyea" path="res://Player/images/player (2).png" id="1_e2ixs"]
+[ext_resource type="Script" path="res://Player/player.gd" id="1_riqxo"]
+[ext_resource type="AudioStream" uid="uid://cvwgetcmpue3k" path="res://Player/sounds/death.mp3" id="3_j10u0"]
+[ext_resource type="AudioStream" uid="uid://b2krhx7fup3ss" path="res://Player/sounds/footstep.wav" id="4_el87u"]
+[ext_resource type="Texture2D" uid="uid://ccruhp00whdtl" path="res://Objects/light.png" id="5_1tj0q"]
+[ext_resource type="Texture2D" uid="uid://caxix8fvdc1ro" path="res://Player/images/Plus1.png" id="6_hu18j"]
+[ext_resource type="Texture2D" uid="uid://dkf5tm81mbo8f" path="res://Player/images/Plus5.png" id="7_nbdvu"]
+[ext_resource type="Texture2D" uid="uid://cq8jmruy2iy05" path="res://Player/images/Dash.png" id="8_ptmo6"]
+[ext_resource type="PackedScene" uid="uid://dgnqx0f1yj7r8" path="res://backround/trail.tscn" id="9_k070m"]
+[ext_resource type="Texture2D" uid="uid://danmamcq71sru" path="res://Player/images/Upgraded.png" id="10_8iufa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t5shg"]
+size = Vector2(12, 11)
+
+[sub_resource type="Animation" id="Animation_oryf6"]
+resource_name = "Dash"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Dash:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, true, false]
+}
+
+[sub_resource type="Animation" id="Animation_vimx5"]
+resource_name = "Death"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1e-05),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_5imxu"]
+resource_name = "In_air"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
+[sub_resource type="Animation" id="Animation_bo5ff"]
+resource_name = "Plus1"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Plus1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 0.0883884),
+"update": 0,
+"values": [Vector2(0, -8), Vector2(0, -16)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Plus1:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Plus1:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_xtk54"]
+resource_name = "Plus5"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Plus5:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -8), Vector2(0, -16)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Plus5:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Plus5:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_4sjux"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Dash:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Plus5:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Plus1:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Upgraded:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_r4wsr"]
+resource_name = "idle"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_p0w4s"]
+resource_name = "walk"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [2, 1, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("footstep:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_kt4e0"]
+resource_name = "Upgraded"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Upgraded:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9, 1.2, 1.4, 1.6, 1.8, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, true, false, true, false, true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dgc0m"]
+_data = {
+"Dash": SubResource("Animation_oryf6"),
+"Death": SubResource("Animation_vimx5"),
+"In_air": SubResource("Animation_5imxu"),
+"Plus1": SubResource("Animation_bo5ff"),
+"Plus5": SubResource("Animation_xtk54"),
+"RESET": SubResource("Animation_4sjux"),
+"Upgraded": SubResource("Animation_kt4e0"),
+"idle": SubResource("Animation_r4wsr"),
+"walk": SubResource("Animation_p0w4s")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_il21k"]
+radius = 9.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n156o"]
+radius = 12.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x185k"]
+size = Vector2(8, 3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ckgbi"]
+size = Vector2(13, 12)
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 17
+collision_mask = 17
+script = ExtResource("1_riqxo")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 3
+texture = ExtResource("1_e2ixs")
+hframes = 7
+
+[node name="Trail" parent="Sprite" instance=ExtResource("9_k070m")]
+
+[node name="Shape" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_t5shg")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_dgc0m")
+}
+
+[node name="Player2" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_dgc0m")
+}
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+position_smoothing_speed = 3.0
+
+[node name="Death" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_j10u0")
+
+[node name="footstep" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_el87u")
+volume_db = 1.0
+
+[node name="door" type="Area2D" parent="."]
+visible = false
+collision_layer = 8
+collision_mask = 8
+
+[node name="Shape3" type="CollisionShape2D" parent="door"]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_t5shg")
+
+[node name="Coin" type="Area2D" parent="."]
+visible = false
+collision_layer = 2
+collision_mask = 2
+
+[node name="Shape2" type="CollisionShape2D" parent="Coin"]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_t5shg")
+
+[node name="Chest" type="Area2D" parent="."]
+visible = false
+collision_layer = 64
+collision_mask = 64
+
+[node name="Shape2" type="CollisionShape2D" parent="Chest"]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_t5shg")
+
+[node name="enemy detection" type="Area2D" parent="."]
+visible = false
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy detection"]
+shape = SubResource("CircleShape2D_il21k")
+
+[node name="Death2" type="Area2D" parent="."]
+visible = false
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Death2"]
+shape = SubResource("CircleShape2D_il21k")
+
+[node name="Fan" type="Area2D" parent="."]
+visible = false
+collision_layer = 32
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fan"]
+shape = SubResource("CircleShape2D_n156o")
+
+[node name="spring" type="Area2D" parent="."]
+collision_layer = 256
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="spring"]
+position = Vector2(0, 6.5)
+shape = SubResource("RectangleShape2D_x185k")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0, 1)
+energy = 300.0
+texture = ExtResource("5_1tj0q")
+texture_scale = 0.1
+
+[node name="Cooldown" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="dash time" type="Timer" parent="."]
+wait_time = 0.4
+
+[node name="Plus1" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.5)
+texture_filter = 3
+position = Vector2(0, -14)
+texture = ExtResource("6_hu18j")
+
+[node name="Plus5" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 3
+position = Vector2(0, -16)
+texture = ExtResource("7_nbdvu")
+
+[node name="Dash" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 3
+position = Vector2(12, -24)
+texture = ExtResource("8_ptmo6")
+
+[node name="Upgraded" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 3
+position = Vector2(0, -16)
+texture = ExtResource("10_8iufa")
+
+[node name="upgrades" type="Node2D" parent="."]
+visible = false
+
+[node name="SPEED" type="Area2D" parent="upgrades"]
+collision_layer = 512
+collision_mask = 512
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="upgrades/SPEED"]
+position = Vector2(0.5, 2)
+shape = SubResource("RectangleShape2D_ckgbi")
+
+[node name="DASH" type="Area2D" parent="upgrades"]
+collision_layer = 1024
+collision_mask = 1024
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="upgrades/DASH"]
+position = Vector2(0.5, 2)
+shape = SubResource("RectangleShape2D_ckgbi")
+
+[node name="JUMP" type="Area2D" parent="upgrades"]
+collision_layer = 2048
+collision_mask = 2048
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="upgrades/JUMP"]
+position = Vector2(0.5, 2)
+shape = SubResource("RectangleShape2D_ckgbi")
+
+[connection signal="finished" from="Death" to="." method="_on_death_finished"]
+[connection signal="area_entered" from="Coin" to="." method="_on_coin_area_entered"]
+[connection signal="area_entered" from="Chest" to="." method="_on_chest_area_entered"]
+[connection signal="area_entered" from="Death2" to="." method="_on_death_2_area_entered"]
+[connection signal="area_entered" from="Fan" to="." method="_on_fan_area_entered"]
+[connection signal="area_exited" from="Fan" to="." method="_on_fan_area_exited"]
+[connection signal="area_entered" from="spring" to="." method="_on_spring_area_entered"]
+[connection signal="timeout" from="Cooldown" to="." method="_on_cooldown_timeout"]
+[connection signal="timeout" from="dash time" to="." method="_on_dash_time_timeout"]
+[connection signal="area_entered" from="upgrades/SPEED" to="." method="_on_speed_area_entered"]
+[connection signal="area_entered" from="upgrades/DASH" to="." method="_on_dash_area_entered"]
+[connection signal="area_entered" from="upgrades/JUMP" to="." method="_on_jump_area_entered"]

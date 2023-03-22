@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpx1kuhlkx43"]
+
+[ext_resource type="Script" path="res://Objects/ScoreUi/Score Ui.gd" id="1_6cqmk"]
+
+[node name="Score Ui" type="CharacterBody2D"]
+script = ExtResource("1_6cqmk")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -296.0
+offset_right = -256.0
+offset_bottom = 23.0
